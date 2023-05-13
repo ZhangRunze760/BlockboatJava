@@ -1,16 +1,17 @@
 QQ :
-  QQGroup_id : "542475913" # 在此输入您的QQ群号
-  QQAPI : "http://101.33.208.219:5700/" # 在此输入您已经配置好的go-cqhttp接口
-  QQPort : 5710
-  OPENAI_APIKEY : "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"
+  QQGroup_id : "123456" # 您的QQ群号。不影响openai的全面使用（若开启）。
+  QQAPI : "http://127.0.0.1:5700/" # 在此输入您已经配置好的go-cqhttp接口。
+  QQPort : 5710 # go-cqhttp的http post上报器端口。
+  OPENAI_APIKEY : "*****************************************" # openai的apikey。填写非法时禁用openai。
 
 MC :
-  MCURL : "http://101.33.208.219:23333" # 在此输入您的MCSManager链接
-  MCUUID : "4e9eca70b1864094b22727e5865ecbaa" #在此输入您在MCSManager中的实例的UID
-  MCREMOTE_UUID : "096ae1c522164644ab493d5bf139a68b" # 在此输入您在MCSManager中的实例所对应的节点的ID，也是实例的GID
-  MCAPIKEY : "e14133fe164042ee9b6e7f8634167484" # 在此输入您在MCSManager中配置好的APIKEY
-  MCLOG : "D:\\Minecraft\\.minecraft\\versions\\1.19.3\ 基础整合\\logs\\latest.log" # 在此输入您的MC服务端的latest.log的位置（绝对位置与相对位置均可）
-  JavaEdition: "true" # 在此填入您的MC服务端对应的版本，如果是java版则填true，如果是基岩版则填false
-  enabledRcon : "true"
-  rconPort : 22
-  rconPassword : "JSminecraft2023@"
+  MCURL : "http://127.0.0.1:23333" # 在此输入您的MCSManager链接。开启RCON时为RCON地址（如http://127.0.0.1:25575）。
+  MCUUID : "**************************" #在此输入您在MCSManager中的实例的UID。开启RCON后无效。
+  MCREMOTE_UUID : "**************************" # 在此输入您在MCSManager中的实例所对应的节点的ID，也是实例的GID。同上。
+  MCAPIKEY : "****************************" # 在此输入您在MCSManager中配置好的APIKEY。同上。
+  MCLOG : "./logs/latest.log" # 在此输入您的MC服务端的latest.log的位置（绝对位置与相对位置均可）。
+  JavaEdition: "true" # 在此填入您的MC服务端对应的版本，如果是java版则填true，如果是基岩版则填false。
+  enabledRcon : "true" # 是否开启RCON模式。RCON模式在Windows系统上的兼容性相对较强，如果出现乱码，建议开启；
+                       # 否则请避免使用RCON模式，以免服务器出现安全隐患。
+  rconPort : 25575 # RCON端口。开启RCON后有效。
+  rconPassword : "*************************" # RCON密码。开启RCON后有效。
