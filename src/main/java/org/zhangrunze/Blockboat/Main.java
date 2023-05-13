@@ -21,7 +21,6 @@ class Main {
     static boolean isJavaEdition;
     static String mclog;
     static boolean enabledRcon;
-    static String Rcon;
     static int rconPort;
     static String rconPassword;
     private static String lastLine = "";
