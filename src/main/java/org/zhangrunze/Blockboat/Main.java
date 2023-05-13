@@ -2,13 +2,11 @@ package org.zhangrunze.Blockboat;
 
 import com.sun.net.httpserver.HttpServer;
 import org.yaml.snakeyaml.*;
-
 import java.io.*;
 import java.net.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
-
 class Main {
     static String qqapi_url;
     static String qqgroup_id;
