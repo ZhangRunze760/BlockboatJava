@@ -9,9 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
 import org.apache.commons.io.*;
-import org.jetbrains.annotations.NotNull;
 
-public class RequestProcessing {
+class RequestProcessing {
     private static boolean isJavaEdition;
     private static String qqapi_url;
     private static String mcapi_url;

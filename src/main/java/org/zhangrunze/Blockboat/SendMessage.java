@@ -13,7 +13,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-public class SendMessage {
+class SendMessage {
 
     static String qqapi_url;
     static String mcapi_url;

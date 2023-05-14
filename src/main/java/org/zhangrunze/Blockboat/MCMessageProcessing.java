@@ -1,7 +1,6 @@
 package org.zhangrunze.Blockboat;
 
-public class MCMessageProcessing {
-
+class MCMessageProcessing {
     private static boolean isJavaEdition;
     private static String qqapi_url;
     private static String mcapi_url;
