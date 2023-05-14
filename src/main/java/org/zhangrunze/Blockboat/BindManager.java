@@ -59,9 +59,6 @@ public class BindManager {
         return true;
     }
 
-    public boolean IsNameBind(String name) {
-        return nameToIdMap.containsKey(name);
-    }
     public boolean IsIdBind(String id) {
         return idToNameMap.containsKey(id);
     }
@@ -70,17 +67,13 @@ public class BindManager {
         return idToNameMap.get(id);
     }
 
-    public String getIdByName(String name) {
-        return nameToIdMap.get(name);
-    }
-
     public String printAll() {
-        String Out = "ID\tName\n";
+        StringBuilder Out = new StringBuilder("ID\tName\n");
         for (String id : idToNameMap.keySet()) {
             String name = idToNameMap.get(id);
-            Out += id + "\t" + name + "\n";
+            Out.append(id).append("\t").append(name).append("\n");
         }
-        return Out;
+        return Out.toString();
     }
 
     private void saveToFile() {

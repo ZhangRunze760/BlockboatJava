@@ -33,12 +33,10 @@ public class MCMessageProcessing {
     public final SendMessage sendMessage = new SendMessage(qqapi_url, mcapi_url, mcapi_uid, mcapi_gid, mcapikey, enabledRcon, rconPort, rconPassword);
 
     public void Process(String lastLine) {
-        BindManager bindManager = new BindManager();
         if (lastLine.contains("[Server thread/INFO]")) {
             if (lastLine.contains("[Server thread/INFO]: [Not Secure] <")) {
                 String Message = lastLine.substring(46);
                 String raw_message = Message.replace("<", "").split("> ")[1];
-                String sender = bindManager.getIdByName(Message.replace("<", "").split("> ")[0]);
                 if (raw_message.startsWith("!!")) {
                     String Msg2 = RequestProcessing.GetMessage(raw_message.replace("!!", ""));
                     sendMessage.SendGPTMessage(Msg2, isJavaEdition, enabledRcon);

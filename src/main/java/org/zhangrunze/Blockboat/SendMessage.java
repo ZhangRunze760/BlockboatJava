@@ -21,7 +21,6 @@ public class SendMessage {
     static String mcapi_gid;
     static String mcapikey;
     static boolean enabledRcon;
-    static String Rcon;
     static int rconPort;
     static String rconPassword;
 

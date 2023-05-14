@@ -106,11 +106,10 @@ public class RequestProcessing {
                                 result = sendMessage.SendMCCommandMCSM(command);
                                 if (Objects.equals(result, "200")) {
                                     SendMessage.SendGroupMessage(group_id, "发送成功！");
-                                    return;
                                 } else {
                                     SendMessage.SendGroupMessage(group_id, "发送失败。。。");
-                                    return;
                                 }
+                                return;
                             }
                         }
                     } else {
@@ -121,28 +120,26 @@ public class RequestProcessing {
                 } else if (RAWMessage.startsWith("bind ")) {
                     if (bindManager.bind(Long.toString(user_id), RAWMessage.replace("bind ", ""))) {
                         SendMessage.SendGroupMessage(group_id, "绑定成功！");
-                        return;
                     }
                     else {
                         SendMessage.SendGroupMessage(group_id, "绑定失败，已经绑定过MCID的QQ号无法再绑定第二个。");
-                        return;
                     }
+                    return;
                 } else if (RAWMessage.startsWith("unbind")) {
                     if (bindManager.unbindById(Long.toString(user_id))) {
                         SendMessage.SendGroupMessage(group_id, "解绑成功！");
-                        return;
                     }
                     else {
                         SendMessage.SendGroupMessage(group_id, "解绑失败，QQ号没有绑定MCID。");
-                        return;
                     }
+                    return;
                 }
 
                 else if (Long.toString(jsonObject.getLong("group_id")).equals(qqgroup_id)) {
                     String sender;
                     if (Message.contains("[CQ:")) Msg2 = CQProcess(Message);
                     else Msg2 = Message;
-                    if (bindManager.getNameById(Long.toString(user_id)) != null && bindManager.getNameById(Long.toString(user_id)) != "null")
+                    if (bindManager.getNameById(Long.toString(user_id)) != null && !bindManager.getNameById(Long.toString(user_id)).equals("null"))
                         sender = bindManager.getNameById(Long.toString(user_id));
                     else
                         sender = JSON.parseObject(jsonObject.getString("sender")).getString("card").replace("\n", "").replace(" ", "");
