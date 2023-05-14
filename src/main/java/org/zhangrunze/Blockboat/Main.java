@@ -4,6 +4,9 @@ import com.sun.net.httpserver.HttpServer;
 import org.yaml.snakeyaml.*;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -23,7 +26,23 @@ class Main {
     static String rconPassword;
     private static String lastLine = "";
     private static String currentLine = "";
-
+    private static String exanpleConfig = "QQ :\n" +
+            "  QQGroup_id : \"123456\" # 您的QQ群号。不影响openai的全面使用（若开启）。\n" +
+            "  QQAPI : \"http://127.0.0.1:5700/\" # 在此输入您已经配置好的go-cqhttp接口。\n" +
+            "  QQPort : 5710 # go-cqhttp的http post上报器端口。\n" +
+            "  OPENAI_APIKEY : \"*****************************************\" # openai的apikey。填写非法时禁用openai。\n" +
+            "\n" +
+            "MC :\n" +
+            "  MCURL : \"http://127.0.0.1:23333\" # 在此输入您的MCSManager链接。开启RCON时为RCON地址（如http://127.0.0.1:25575）。\n" +
+            "  MCUUID : \"**************************\" #在此输入您在MCSManager中的实例的UID。开启RCON后无效。\n" +
+            "  MCREMOTE_UUID : \"**************************\" # 在此输入您在MCSManager中的实例所对应的节点的ID，也是实例的GID。同上。\n" +
+            "  MCAPIKEY : \"****************************\" # 在此输入您在MCSManager中配置好的APIKEY。同上。\n" +
+            "  MCLOG : \"./logs/latest.log\" # 在此输入您的MC服务端的latest.log的位置（绝对位置与相对位置均可）。\n" +
+            "  JavaEdition: \"true\" # 在此填入您的MC服务端对应的版本，如果是java版则填true，如果是基岩版则填false。\n" +
+            "  enabledRcon : \"true\" # 是否开启RCON模式。RCON模式在Windows系统上的兼容性相对较强，如果出现乱码，建议开启；\n" +
+            "                       # 否则请避免使用RCON模式，以免服务器出现安全隐患。\n" +
+            "  rconPort : 25575 # RCON端口。开启RCON后有效。\n" +
+            "  rconPassword : \"*************************\" # RCON密码。开启RCON后有效。\n";
     public static void ListenOnAPort(int port) {
         System.out.printf("机器人正在监听%d端口。请确保GO-CQHTTP正在该端口上运行。\n", port);
         try {
@@ -36,7 +55,7 @@ class Main {
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println("机器人正在开启。。。");
 
@@ -46,7 +65,10 @@ class Main {
             try {
                 in = new FileInputStream("botconfig.yaml");
             } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+                System.out.println("未检测到配置文件，在本目录下生成botconfig.yaml。");
+                Files.write(Paths.get("botconfig.yaml"), exanpleConfig.getBytes(StandardCharsets.UTF_8));
+                System.out.println("请填写配置文件后重启机器人。");
+                return;
             }
         }
         Map<String, Object> obj = yaml.load(in);
