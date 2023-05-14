@@ -5,8 +5,11 @@ import com.alibaba.fastjson2.JSONObject;
 import okhttp3.*;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 import org.apache.commons.io.*;
+import org.jetbrains.annotations.NotNull;
 
 public class RequestProcessing {
     private static boolean isJavaEdition;
@@ -21,7 +24,11 @@ public class RequestProcessing {
     static boolean enabledRcon;
     static int rconPort;
     static String rconPassword;
-
+    private static final String exanpleOplist = """
+            # 在此输入群内管理员的QQ号，用逗号隔开。
+            
+            123456,2345678,23456788
+            """;
     public RequestProcessing(String qqgroup_id, String qqapi_url, String mcapi_url, String mcapi_uid, String mcapi_gid, String mcapikey, String OPENAI_API, boolean isJavaEdition, boolean enabledRcon, int rconPort, String rconPassword) {
         RequestProcessing.qqapi_url = qqapi_url;
         RequestProcessing.mcapi_url = mcapi_url;
@@ -153,7 +160,14 @@ public class RequestProcessing {
                 return;
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("不存在oplist.txt，无法正确处理消息。");
+            try {
+                Files.writeString(Paths.get("oplist.txt"), exanpleOplist);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.out.println("请填写后重启机器人。");
+            return;
         }
     }
 

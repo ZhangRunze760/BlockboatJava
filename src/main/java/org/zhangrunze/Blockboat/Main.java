@@ -97,11 +97,16 @@ class Main {
         MCMessageProcessing mcMessageProcessing = new MCMessageProcessing(isJavaEdition, qqapi_url, mcapi_url, mcapi_uid, mcapi_gid, mcapikey, qqgroup_id, enabledRcon, rconPort, rconPassword);
         new SendMessage(qqapi_url, mcapi_url, mcapi_uid, mcapi_gid, mcapikey, enabledRcon, rconPort, rconPassword);
 
-        new Thread(() -> {
-            try (BufferedReader reader = new BufferedReader(new FileReader(mclog))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(mclog))) {
+            new Thread(() -> {
+
                 while (true) {
                     // 每隔1秒读取一次文件
-                    currentLine = reader.readLine();
+                    try {
+                        currentLine = reader.readLine();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     if (currentLine != null && !currentLine.equals(lastLine)) {
                         // 如果当前行不为空且与上一行不同，就存储并处理该行
                         lastLine = currentLine;
@@ -109,10 +114,11 @@ class Main {
                         mcMessageProcessing.Process(Message);
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            }).start();
+        } catch (IOException e) {
+                System.out.println("配置文件有误，请检查配置文件。");
+                return;
             }
-        }).start();
 
         System.out.println("正在开启消息处理模块。。。");
 
