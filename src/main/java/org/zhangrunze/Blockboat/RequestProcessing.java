@@ -186,7 +186,6 @@ class RequestProcessing {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            assert response.body() != null;
             String JsonStr = response.body().string();
             JSONObject jsonObject = JSON.parseObject(JsonStr);
             System.out.println(JsonStr);
